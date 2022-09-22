@@ -1,7 +1,7 @@
 CHATBOT
 
 
-An easy to use AI-based package that feeds custom data into a neural network which is trained and outputs a fully functional chatbot.
+An easy to use AI-based package that feeds custom data into a neural network, which is trained and the output is a fully functional chatbot.
 
 INSTALLATION
 
