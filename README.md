@@ -10,34 +10,32 @@ You can install it from Pypi: pip install ChatbotVerse https://pypi.org/project/
 
 STEPS TO USE THE CHATBOT:-
 
+ from ChatbotVerse import chatbotVerse as cbv
 
-#Importing the module
+ # Initialize trainer
+ 
+ trainer = cbv.modelTrain()
+ 
+ intents = trainer.loadIntents('intents.json')  
+ 
+ words, classes = trainer.preprocess_save_Data(intents)  
+ 
+ train_x, train_y = trainer.prepareTrainingData(words, classes)  
 
-from ChatbotVerse import chatbotVerse as cbv
+ # Create the model
+ 
+ model = trainer.createModel(train_x, train_y, save_path='cbv_model.model')
 
-#Initialize trainer
+ # Initialize predictor
+ 
+ predictor = cbv.modelPredict('intents.json', 'cbv_model.model')
 
-trainer = cbv.modelTrain()
-
-intents = trainer.loadIntents('intents.json')
-
-words, classes = trainer.preprocess_save_Data(intents) 
-
-train_x, train_y = trainer.prepareTrainingData(words, classes) 
-
-#Create the model
-
-model = trainer.createModel(train_x, train_y, save_path='cbv_model.model')
-
-#Initialize predictor:-
-predictor = cbv.modelPredict('intents.json', 'cbv_model.model')
-
-#Get output from the bot
-
-running = True
-
-while running:
-
+ # A test loop
+ 
+ running = True
+ 
+ while running:
+ 
     msg = input('You: ')
     
     if msg == 'quit':
@@ -49,3 +47,4 @@ while running:
         response = predictor.chatbot_response(msg)
         
         print('Bot: ', response)
+        
